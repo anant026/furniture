@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "name": "Sofa Set",
+    "price": 8999,
+    "specs": {
+      "manufacturer": "Raj",
+      "capacity": 3,
+      "color": "brown"
+    },
+    "description": "Sofa set for your home .Perfect fit",
+    "rating": 5,
+    "image": {
+      "small": "assets/images/curology-6CJg-fOTYs4-unsplash.jpg",
+      "large": "assets/images/curology-6CJg-fOTYs4-unsplash.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Chair",
+    "price": 495,
+    "specs": {
+      "manufacturer": "Crs",
+      "capacity": 1,
+      "color": "Orange"
+    },
+    "description": "Comfortable Chair to sit back and relax",
+    "rating": 3,
+    "image": {
+      "small": "assets/images/chair.jpg",
+      "large": "assets/images/chair.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Dinning Table",
+    "price": 4566,
+    "specs": {
+      "manufacturer": "Crs",
+      "capacity": 3,
+      "color": "Orange"
+    },
+    "description": "Dinning table for your home adds value to food .",
+    "rating": 4,
+    "image": {
+      "small": "assets/images/DinnerTable.jpg",
+      "large": "assets/images/DinnerTable.jpg"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Sofa Set 2",
+    "price": 9999,
+    "specs": {
+      "manufacturer": "Ezzah",
+      "capacity": 4,
+      "color": "black"
+    },
+    "description": "Sofa set for perfect experience",
+    "rating": 5,
+    "image": {
+      "small": "assets/images/sofa.jpg",
+      "large": "assets/images/sofa.jpg"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chair 2",
+    "price": 750,
+    "specs": {
+      "manufacturer": "Ezzah",
+      "capacity": 1,
+      "color": "blue"
+    },
+    "description": "Comfortable chair for office work",
+    "rating": 4,
+    "image": {
+      "small": "assets/images/blueChair.jpg",
+      "large": "assets/images/blueChair.jpg"
+    }
+  }
+  
+ 
+]

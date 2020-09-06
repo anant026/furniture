@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<title>Furniture</title>
+
+	
+	<link href="assets/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<header class="compact">
+		
+		<h1><img src="./assets/images/menu.JPG" style="float:left"><a href="#">HOME</a><span style="padding: 7px;"></span>SHOP</h1>
+	</header>
+
+	<div class="main-content">
+
+		<div class="all-products page">
+
+			<div class="filters">
+				<form>
+					<span >Filter By</span>
+					<div class="filter-criteria">
+						<span class="collapsible">Color</span>
+						<div class="content">
+							<label><input type="checkbox" value="black" name="color">Black </label>
+						<label><input type="checkbox" value="blue" name="color">Blue</label>
+						<label><input type="checkbox" value="orange" name="color">Orange</label>
+						<label><input type="checkbox" value="brown" name="color">Brown</label>
+						</div>
+						
+					</div>
+					<div class="filter-criteria">
+						<!--button class="collapsible">Manufacturer</button-->
+						<span class="collapsible">Manufacturer</span>
+						<div class="content">
+						<label><input type="checkbox" name="manufacturer" value="raj">Raj</label>
+						<label><input type="checkbox" name="manufacturer" value="crs">Crs</label>
+						<label><input type="checkbox" name="manufacturer" value="ezzah">Ezzah</label>
+						</div>
+						
+					</div>
+
+					<div class="filter-criteria">
+						<span class="collapsible">Capacity</span>
+						<div class="content">
+						<label><input type="checkbox" value="3" name="capacity">3 Person</label>
+						<label><input type="checkbox" value="1" name="capacity">1 Person</label>
+						<label><input type="checkbox" value="4" name="capacity">4 Person</label>
+						</div>
+						
+					</div>
+
+					
+
+					<button>Clear filters</button>
+
+				</form>
+
+			</div>
+
+			<ul class="products-list">
+				<script id="products-template" type="x-handlebars-template">​
+					{{#each this}}
+						<li data-index="{{id}}">
+							<a href="#" class="product-photo"><img src="{{image.small}}" height="130" alt="{{name}}"/></a>
+							<h2><a href="#"> {{name}} </a></h2>
+							<ul class="product-description">
+								<li><span>Manufacturer: </span>{{specs.manufacturer}}</li>
+								<li><span>capacity: </span>{{specs.capacity}} Person</li>
+								
+								<li><span>color: </span>{{specs.color}} </li>
+								<li><span>Rating: </span>{{rating}} </li>
+							</ul>
+							<button>Buy Now!</button>
+							<p class="product-price">{{price}}$</p>
+							<div class="highlight"></div>
+						</li>
+					{{/each}}
+				</script> 
+			</ul>
+
+		</div>
+
+
+		<div class="single-product page">
+
+			<div class="overlay"></div>
+
+			<div class="preview-large">
+				<h3>Single product view</h3>
+				<img src=""/>
+				<p></p>
+				<button class="buyButton">Buy Now!</button>
+				<span>Price:</span><h5></h5>
+				<span class="close">×</span>
+			</div>
+
+		</div>
+
+		<div class="error page">
+			<h3>Sorry, something went wrong :(</h3>
+		</div>
+
+	</div>
+	<script>
+		var coll = document.getElementsByClassName("collapsible");
+		var i;
+		
+		for (i = 0; i < coll.length; i++) {
+		  coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.maxHeight){
+			  content.style.maxHeight = null;
+			} else {
+			  content.style.maxHeight = content.scrollHeight + "px";
+			} 
+		  });
+		}
+		</script>
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+	<script src="assets/js/script.js"></script>
+
+
+</body>
+</html>
