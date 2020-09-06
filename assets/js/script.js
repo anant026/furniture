@@ -11,63 +11,46 @@ $(function () {
 			specName = that.attr('name');
 			
 		if(that.is(":checked")) {
-
-			// If the filter for this specification isn't created yet - do it.
 			if(!(filters[specName] && filters[specName].length)){
 				filters[specName] = [];
 			}
 
-			//	Push values into the chosen filter array
 			filters[specName].push(that.val());
 
-			// Change the url hash;
 			createQueryHash(filters);
 
 		}
 
-		// When a checkbox is unchecked we need to remove its value from the filters object.
 		if(!that.is(":checked")) {
 
-			if(filters[specName] && filters[specName].length && (filters[specName].indexOf(that.val()) != -1)){
-
-				// Find the checkbox value in the corresponding array inside the filters object.
+			if(filters[specName] && filters[specName].length && (filters[specName].indexOf(that.val()) != -1)){		
 				var index = filters[specName].indexOf(that.val());
-
-				// Remove it.
 				filters[specName].splice(index, 1);
-
-				// If it was the last remaining value for this specification,
-				// delete the whole array.
 				if(!filters[specName].length){
 					delete filters[specName];
 				}
 
 			}
 
-			// Change the url hash;
+			
 			createQueryHash(filters);
 		}
 	});
-	// When the "Clear all filters" button is pressed change the hash to '#' (go to the home page)
-	$('.filters button').click(function (e) {
+	$('.filters button').click( (e) =>{
 		e.preventDefault();
 		window.location.hash = '#';
 	});
 
 
-	// Single product page buttons
 
-	var singleProductPage = $('.single-product');
+	let singleProductPage = $('.single-product');
 
-	singleProductPage.on('click', function (e) {
+	singleProductPage.on('click',  (e) => {
 
 		if (singleProductPage.hasClass('visible')) {
 
-			var clicked = $(e.target);
-
-			// If the close button or the background are clicked go to the previous page.
+			let clicked = $(e.target);
 			if (clicked.hasClass('close') || clicked.hasClass('overlay')) {
-				// Change the url hash with the last used filters.
 				createQueryHash(filters);
 			}
 
@@ -76,24 +59,14 @@ $(function () {
 	});
 
 
-	// These are called on page load
 
 	// Get data about our products from products.json.
 	$.getJSON( "products.json", ( data )=> {
-
-		// Write the data into our global variable.
 		products = data;
-
-		// Call a function to create HTML for all the products.
 		generateAllProductsHTML(products);
-
-		// Manually trigger a hashchange to start the app.
 		$(window).trigger('hashchange');
 	});
 
-
-	// An event handler with calls the render function on every hashchange.
-	// The render function will show the appropriate content of out page.
 	$(window).on('hashchange', ()=>{
 		render(decodeURI(window.location.hash));
 	});
@@ -102,46 +75,30 @@ $(function () {
 	// Navigation
 
 	function render(url) {
-
-		// Get the keyword from the url.
-		var temp = url.split('/')[0];
-
-		// Hide whatever page is currently shown.
+		let temp = url.split('/')[0];
 		$('.main-content .page').removeClass('visible');
 
 
-		var	map = {
-
-			// The "Homepage".
+		let	map = {
 			'': ()=> {
-
-				// Clear the filters object, uncheck all checkboxes, show all the products
 				filters = {};
 				checkboxes.prop('checked',false);
 
-				renderProductsPage(products);
+				allProductRender(products);
 			},
 
-			// Single Products page.
 			'#product': ()=> {
-
-				// Get the index of which product we want to show and call the appropriate function.
-				var index = url.split('#product/')[1].trim();
+				const index = url.split('#product/')[1].trim();
 
 				singleProductRender(index, products);
 			},
 
-			// Page with filtered products
 			'#filter': ()=> {
 
-				// Grab the string after the '#filter/' keyword. Call the filtering function.
 				url = url.split('#filter/')[1].trim();
-
-				// Try and parse the filters object from the query string.
 				try {
 					filters = JSON.parse(url);
 				}
-					// If it isn't a valid json, go back to homepage ( the rest of the code won't be executed ).
 				catch(err) {
 					window.location.hash = '#';
 					return;
@@ -152,61 +109,42 @@ $(function () {
 
 		};
 
-		// Execute the needed function depending on the url keyword (stored in temp).
 		if(map[temp]){
 			map[temp]();
 		}
-		// If the keyword isn't listed in the above - render the error page.
 		else {
 			renderErrorPage();
 		}
 
 	}
 
-
-	// This function is called only once - on page load.
-	// It fills up the products list via a handlebars template.
-	// It recieves one parameter - the data we took from products.json.
 	function generateAllProductsHTML(data){
 
-		var list = $('.all-products .products-list');
+		let list = $('.all-products .products-list');
 
-		var theTemplateScript = $("#products-template").html();
-		//Compile the template​
-		var theTemplate = Handlebars.compile (theTemplateScript);
+		let theTemplateScript = $("#products-template").html();
+		let theTemplate = Handlebars.compile (theTemplateScript);
 		list.append (theTemplate(data));
 
-
-		// Each products has a data-index attribute.
-		// On click change the url hash to open up a preview for this product only.
-		// Remember: every hashchange triggers the render function.
 		list.find('li').on('click', function (e) {
 			e.preventDefault();
 
-			var productIndex = $(this).data('index');
+			const productIndex = $(this).data('index');
 
 			window.location.hash = 'product/' + productIndex;
 		})
 	}
 
-	// This function receives an object containing all the product we want to show.
-	function renderProductsPage(data){
+	function allProductRender(data){
 
-		var page = $('.all-products'),
+		let page = $('.all-products'),
 			allProducts = $('.all-products .products-list > li');
-
-		// Hide all the products in the products list.
 		allProducts.addClass('hidden');
-
-		// Iterate over all of the products.
-		// If their ID is somewhere in the data object remove the hidden class to reveal them.
 		allProducts.each(function () {
-
-			var that = $(this);
-
-			data.forEach(function (item) {
-				if(that.data('index') == item.id){
-					that.removeClass('hidden');
+			
+			data.forEach( (item) => {
+				if($(this).data('index') == item.id){
+					$(this).removeClass('hidden');
 				}
 			});
 		});
@@ -280,7 +218,7 @@ $(function () {
 			}
 
 		});
-		renderProductsPage(results);
+		allProductRender(results);
 	}
 
 
