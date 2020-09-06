@@ -62,6 +62,8 @@ $(function () {
 
 	// Get data about our products from products.json.
 	$.getJSON( "products.json", ( data )=> {
+		let list = $('.all-products .products-list');
+		list.find('h3').text('loading....')
 		products = data;
 		generateAllProductsHTML(products);
 		$(window).trigger('hashchange');
@@ -121,9 +123,10 @@ $(function () {
 	function generateAllProductsHTML(data){
 
 		let list = $('.all-products .products-list');
-
+		if(data.length>0){
 		let theTemplateScript = $("#products-template").html();
 		let theTemplate = Handlebars.compile (theTemplateScript);
+		list.find('h3').text(' ')
 		list.append (theTemplate(data));
 
 		list.find('li').on('click', function (e) {
@@ -133,6 +136,11 @@ $(function () {
 
 			window.location.hash = 'product/' + productIndex;
 		})
+		}
+		else {
+			list.find('h3').text('No Records found')
+		}
+		
 	}
 
 	function allProductRender(data){
